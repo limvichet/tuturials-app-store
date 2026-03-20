@@ -17,7 +17,7 @@ const login = () => {
     class="bg-[#0f172a] text-gray-100 min-h-screen font-sans flex items-center justify-center selection:bg-emerald-500/30">
     <div
       class="bg-gray-800/40 backdrop-blur-md border border-gray-700/50 p-4 rounded-xl w-full max-w-xs shadow-lg shadow-emerald-900/20 space-y-4">
-      <h1 class="text-xl font-bold text-center gradient-text">Login</h1>
+      <h1 class="text-xl font-bold text-center gradient-text">Signin</h1>
 
       <!-- Form -->
       <form class="space-y-3">
@@ -40,7 +40,7 @@ const login = () => {
           </NuxtLink>
         </button> -->
         <button @click="login" type="button" class="cursor-pointer w-full py-2 rounded-lg font-medium bg-emerald-600 hover:bg-emerald-700 transition-transform hover:scale-105 shadow-lg shadow-emerald-900/20 disabled:opacity-50">
-            Login
+            Signin
         </button>
       </form>
 
