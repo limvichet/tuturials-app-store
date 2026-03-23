@@ -47,7 +47,7 @@ const login = () => {
       </form>
 
       <p class="text-gray-400 text-center text-xs mt-2">
-        Don't have an account?
+        Don't have an account to login?
       </p>
     </div>
   </div>
