@@ -7,7 +7,7 @@ useHead({
 })
 
 const login = () => {
-   navigateTo("/apps/dashboard", { replace: true })
+   navigateTo("/apps/dashpnboard", { replace: true })
 }
 
 </script>
@@ -34,11 +34,13 @@ const login = () => {
         </div>
 
         <!-- Submit -->
-        <!-- <button type="button" class="w-full py-2 rounded-lg font-medium bg-emerald-600 hover:bg-emerald-700 transition-transform hover:scale-105 shadow-lg shadow-emerald-900/20 disabled:opacity-50">
+        <!-- 
+        <button type="button" class="w-full py-2 rounded-lg font-medium bg-emerald-600 hover:bg-emerald-700 transition-transform hover:scale-105 shadow-lg shadow-emerald-900/20 disabled:opacity-50">
           <NuxtLink to="/apps/dashboard">
             Login
           </NuxtLink>
-        </button> -->
+        </button> 
+        -->
         <button @click="login" type="button" class="cursor-pointer w-full py-2 rounded-lg font-medium bg-emerald-600 hover:bg-emerald-700 transition-transform hover:scale-105 shadow-lg shadow-emerald-900/20 disabled:opacity-50">
             Signin
         </button>
