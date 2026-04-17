@@ -6,7 +6,6 @@ import { z } from "zod"
 definePageMeta({
   guestOnly: true,
 })
-
 useHead({
   title: "Login",
   meta: [{ name: "description", content: "Login to your account." }],

@@ -30,7 +30,7 @@ const schema = toTypedSchema(
 )
 
 /* Vee-validate form */
-const { handleSubmit, errors, resetForm } = useForm({
+const { handleSubmit, errors, setValues } = useForm({
     validationSchema: schema,
     initialValues: {
         title: "",
@@ -60,20 +60,45 @@ const fetchCategories = async () => {
     }
 }
 
+/* type */
+type Article = {
+    id: number
+    title: string
+    date: string
+    excerpt: string
+    publication?: string
+    category_id: number
+}
+
+/* get id */
+const route = useRoute()
+const id = Number(route.params.id)
+
+/* fetch article */
+const fetchArticle = async () => {
+  try {
+    const res = await $fetch<Article>(`/api/v-portfolio/admin-articles/${id}`)
+    setValues(res)
+  } catch (err: any) {
+    errorMsg.value = err?.statusMessage || "Failed to load article"
+  }
+}
+
 onMounted(async() => {
     await fetchCategories()
+    await fetchArticle()
 })
 
 const onSubmit = handleSubmit(async (values) => {
     try {
-        const res = await $fetch<{ id: number }>("/api/v-portfolio/admin-articles", {
-            method: "POST",
+        const res = await $fetch<{ id: number }>(`/api/v-portfolio/admin-articles/${id}`, {
+            method: "PUT",
             body: values,
         })
-        successMsg.value = "Article created successfully"
-        resetForm()
+        successMsg.value = "Article updated successfully"
+       // resetForm()
     } catch (err: any) {
-        errorMsg.value = err?.statusMessage || "Failed to create article"
+        errorMsg.value = err?.statusMessage || "Failed to update article"
     }
 })
 
@@ -81,7 +106,7 @@ const onSubmit = handleSubmit(async (values) => {
 
 <template>
     <div class="p-4 max-w-lg">
-        <h1 class="text-xl font-bold gradient-text mb-4">Create Product</h1>
+        <h1 class="text-xl font-bold gradient-text mb-4">Update Article</h1>
 
         <!-- Messages -->
         <div v-if="errorMsg" class="mb-3 p-2 rounded bg-red-500/20 text-red-300 text-sm">
@@ -140,7 +165,7 @@ const onSubmit = handleSubmit(async (values) => {
             <div>
                 <select v-model.number="category_id"
                     class="selection">
-                    <option value="-1">Choose ... </option>
+                    <option value="-1" disabled>Choose ... </option>
                     <option v-for="c in categories" :key="c.id" :value="c.id">{{ c.name }}</option>
                 </select>
             </div>

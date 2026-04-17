@@ -1,0 +1,31 @@
+export default defineNuxtRouteMiddleware(async (to) => {
+  const { isAuthenticated, fetchUser } = useAuth();
+
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  const guestOnly = to.matched.some((record) => record.meta.guestOnly);
+
+  if (requiresAuth || guestOnly) {
+    // Prevents re-fetching on every client-side navigation.
+    if (!isAuthenticated.value) {
+      // if (import.meta.server) {
+      if (process.server) {
+        const headers = useRequestHeaders(["cookie"]);
+        await fetchUser(headers);
+      } else {
+        await fetchUser();
+      }
+    }
+  }
+
+  // Redirect to login if auth is required and user is not authenticated.
+  if (requiresAuth && !isAuthenticated.value) {
+    return navigateTo(`/app/signin?redirectTo=${encodeURIComponent(to.fullPath)}`, {
+      replace: true,
+    });
+  }
+
+  // 3. Guest Logic (e.g., prevent logged-in users from seeing /login)
+  if (guestOnly && isAuthenticated.value) {
+    return navigateTo("/apps/dashboard", { replace: true });
+  }
+});

@@ -1,5 +1,3 @@
-import { getCookie, createError } from "h3"
-
 type UserResponse = {
   id: number
   name: string

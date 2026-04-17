@@ -50,21 +50,21 @@ export default defineEventHandler(async (event) => {
       body: parsed.data,
     })
 
-    setCookie(event, "token", res.token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      path: "/",
-      maxAge: 60 * 60 * 24,
-    })
-
-    // setCookie(event, "id", res.user.id.toString(), {
+    // setCookie(event, "token", res.token, {
     //   httpOnly: true,
     //   secure: process.env.NODE_ENV === "production",
     //   sameSite: "lax",
     //   path: "/",
     //   maxAge: 60 * 60 * 24,
     // })
+
+    setCookie(event, "id", res.user.id.toString(), {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24,
+    })
 
     return { 
       user: res.user, 

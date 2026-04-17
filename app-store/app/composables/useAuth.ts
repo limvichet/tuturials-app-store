@@ -57,7 +57,7 @@ export const useAuth = () => {
       const fetchedUser = await $fetch<User>("/api/v-portfolio/admin-auth/user", {
         headers,
       });
-console.log("Fetched user:", fetchedUser);
+
       user.value = fetchedUser;
     } catch (error) {
       user.value = null;
@@ -87,7 +87,6 @@ console.log("Fetched user:", fetchedUser);
 
 
   return {
-    fetchUser,
     loading,
     login,
     logout,
